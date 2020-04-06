@@ -1,0 +1,41 @@
+<template>
+  <v-app id="inspire">
+   <Navigation/>
+    <ToolBar/>
+    <v-content>
+      <v-container fluid>
+      <transition name="component-fade" mode="out-in">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+      </transition>
+    </v-container>
+        <MessageBar/>
+    </v-content>
+  </v-app>
+</template>
+
+<script>
+
+import Navigation from './layouts/Navigation';
+import ToolBar from './layouts/ToolBar';
+import MessageBar from '@/components/admin/MessageBar';
+  export default {
+    components:{
+      Navigation,
+      ToolBar,
+      MessageBar,
+    },
+  }
+</script>
+
+<style type="text/css">
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
+</style>
