@@ -41,7 +41,8 @@ export default {
     },
     methods: {
         getUrl() {
-            var url;
+            let url;
+            debugger;
             if (this.filter_field_name) {
                 url = this.base_url + '?' + this.filter_field_name + '=' + this.object_id
             } else {

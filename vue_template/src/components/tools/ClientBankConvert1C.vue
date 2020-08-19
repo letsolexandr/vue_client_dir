@@ -51,10 +51,10 @@
         },
         methods: {
             convertCSV() {
-                this.errors={}
+                this.errors={};
                 this.button_loading = true;
-                const form_data = new FormData()
-                form_data.append('in_file', this.fields.in_file)
+                const form_data = new FormData();
+                form_data.append('in_file', this.fields.in_file);
                 axios.post(this.endpoint, form_data).then((response) => {
                         setTimeout(()=>{
                             this.result_href = `${this.$config.root}${response.data.url}`;

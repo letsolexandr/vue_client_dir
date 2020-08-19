@@ -1,10 +1,10 @@
 <template>
     <div>
-        <v-btn small color="primary"
+        <v-btn small  color="primary"
                @click.stop="openAddObjectForm({module:module_name,namespace:namespace, initial:{contract:contract_id}})">
             Додати послугу
         </v-btn>
-        <v-layout row justify-center>
+        <v-layout row >
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <v-card>
                     <v-card-title>
@@ -17,14 +17,14 @@
                                     <Autocomplete label="Договір"
                                                   :error-messages='form_errors.contract'
                                                   v-model="fields.contract"
-                                                  :url="`${this.$config.domen}/contracts/contract/`"
+                                                  :url="`${config.domen}/contracts/contract/`"
                                     ></Autocomplete>
                                 </v-flex>
                                 <v-flex xs12>
                                     <Autocomplete label="Послуга"
                                                   :error-messages='form_errors.product'
                                                   v-model="fields.product"
-                                                  :url="`${this.$config.domen}/dict/product/`"
+                                                  :url="`${config.domen}/dict/product/`"
                                     ></Autocomplete>
                                 </v-flex>
                                 <v-flex xs6>
@@ -76,8 +76,9 @@
 
 <script>
     import Autocomplete from '@/base/Autocomplete';
-    import FormBase from "@/mixins/FormBase";
+    import FormBase from "../../../../mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
+    import config from "../config";
 
     export default {
         props: {
@@ -97,12 +98,13 @@
                 module_name: 'products',
                 form_errors: {},
                 reload_on_save: true,
+                config,
                 fields: {
                     contract: null,
                     payment_date: null,
                     sum_payment: null
                 },
-                base_url: `${this.$config.domen}/contracts/contract-products/`
+                base_url: `${config.domen}/contracts/contract-products/`
             }
         },
     }

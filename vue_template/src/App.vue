@@ -17,6 +17,7 @@
                 <InfoDialog/>
                 <DeleteDialog/>
                 <ConfirmDialog/>
+                <OverleyLoading></OverleyLoading>
             </v-container>
         </v-content>
 
@@ -32,12 +33,14 @@
     import DeleteDialog from '@/base/info_dialog/DeleteDialog';
     import Breadscrum from "./layouts/Breadscrum";
     import ConfirmDialog from "./base/info_dialog/ConfirmDialog";
+    import OverleyLoading from "./base/OverlayLoading";
 
     //!!!!!!Не видаляти
     /*ця штука глобально реструє модифікацію */
 
     export default {
         components: {
+            OverleyLoading,
             ConfirmDialog,
             ToolBar,
             Navigation,
@@ -46,5 +49,12 @@
             InfoDialog,
             DeleteDialog
         },
+        mounted() {
+            this.$root.$emit('show-overlay-loading');
+            setTimeout(() => {
+                this.$root.$emit('hide-overlay-loading')
+            }, 3000)
+        },
+
     }
 </script>

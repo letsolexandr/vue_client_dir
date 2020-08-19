@@ -20,7 +20,7 @@
                                 <v-flex xs12>
                                     <Autocomplete
                                             label="Батьківський елемент"
-                                            :url="`${this.$config.domen}/contracts/contract/`"
+                                            :url="`${config.domen}/contracts/contract/`"
                                             v-model="fields.parent_element"
                                             :error-messages='form_errors.parent_element'>
                                     </Autocomplete>
@@ -28,17 +28,22 @@
                                 <v-flex xs12>
                                     <Autocomplete
                                             label="Заявка"
-                                            :url="`${this.$config.domen}/statement/sed-statement/`"
+                                            :url="`${config.domen}/statement/sed-statement/`"
                                             v-model="fields.statement"
                                             :error-messages='form_errors.statement'>
                                     </Autocomplete>
                                 </v-flex>
 
-                                <v-flex xs12>
+                                <v-flex xs6>
                                     <v-text-field label="Номер договору"
                                                   :error-messages='form_errors.number_contract'
                                                   v-model="fields.number_contract"
                                                   required></v-text-field>
+                                </v-flex>
+                                <v-flex xs6>
+                                    <v-checkbox label="Згенерувати автоматично"
+                                                  v-model="fields.automatic_number_gen"
+                                                  ></v-checkbox>
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-textarea label="Предмет договору"
@@ -79,24 +84,33 @@
                                 <v-flex xs12>
                                     <Autocomplete
                                             label="Контрагент"
-                                            :url="`${this.$config.domen}/api-base/organization/`"
+                                            :url="`${config.domen}/api-base/organization/`"
                                             v-model="fields.contractor"
                                             model="organization"
                                             :error_messages='form_errors.contractor'
                                     >
                                     </Autocomplete>
                                 </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field label="Ціна договору"
-                                                  :error-messages='form_errors.price_contract'
-                                                  v-model="fields.price_contract"
-                                                  required>
-                                    </v-text-field>
-                                </v-flex>
+
                                 <v-flex xs12>
                                     <v-text-field label="Ціна договору(За місяць)"
                                                   :error-messages='form_errors.price_contract_by_month'
                                                   v-model="fields.price_contract_by_month"
+                                                  required>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs12>
+                                    <v-text-field label="Вартість додаткових послуг та підключення"
+                                                  :error-messages='form_errors.price_additional_services'
+                                                  v-model="fields.price_additional_services"
+                                                  required>
+                                    </v-text-field>
+                                </v-flex>
+
+                                <v-flex xs12>
+                                    <v-text-field label="Ціна договору (Загальна вартість)"
+                                                  :error-messages='form_errors.price_contract'
+                                                  v-model="fields.price_contract"
                                                   required>
                                     </v-text-field>
                                 </v-flex>
@@ -132,6 +146,7 @@
     import DataPicker from "@/base/DataPicker";
     import FileFieldV1 from "@/base/FileFieldV1";
     import OrganizationAddForm from "../../admin/organization/OrganizationAddForm";
+    import config from "./config";
 
     export default {
         mixins: [FormBase],
@@ -166,7 +181,8 @@
                 redirect_to_card: true,
                 card_url: '/main/contracts/',
                 file_fields: ['copy_contract'],
-                base_url: `${this.$config.domen}/contracts/contract/`
+                config,
+                base_url: `${config.domen}/contracts/contract/`
 
             }
         },

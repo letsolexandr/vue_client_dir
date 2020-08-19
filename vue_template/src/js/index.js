@@ -1,3 +1,5 @@
+import {saveAs} from './FileSaver';
+
 function reloadPage() {
     let location = this.$route.fullPath
     this.$router.replace(this.$route.matched[0])
@@ -9,7 +11,7 @@ function getFileName(full_url = null) {
         let url_chancs = full_url.split('/')
         return decodeURI(url_chancs[url_chancs.length - 1])
     }
-    if (this.file_url) {
+    if (this && this.file_url) {
         let url_chancs = this.file_url.split('/')
         return decodeURI(url_chancs[url_chancs.length - 1])
     } else {
@@ -29,4 +31,4 @@ function FormatTime(seconds) {
 }
 
 
-export {reloadPage, getFileName, FormatTime};
+export {reloadPage, getFileName, FormatTime, saveAs};

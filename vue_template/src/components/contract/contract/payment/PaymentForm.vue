@@ -17,7 +17,7 @@
                                     <Autocomplete label="Номер Договору"
                                                   :error-messages='form_errors.contract'
                                                   v-model="fields.contract"
-                                                  :url="`${this.$config.domen}/contracts/contract/`"
+                                                  :url="`${config.domen}/contracts/contract/`"
                                     ></Autocomplete>
                                 </v-flex>
                                 <v-flex xs6>
@@ -55,7 +55,7 @@
     import Autocomplete from '@/base/Autocomplete';
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
-
+    import config from "../config";
     export default {
         props: {
             contract_id: {
@@ -79,7 +79,7 @@
                     payment_date: null,
                     sum_payment: null
                 },
-                base_url: `${this.$config.domen}/contracts/register-payment/`
+                base_url: `${config.domen}/contracts/register-payment/`
             }
         },
     }

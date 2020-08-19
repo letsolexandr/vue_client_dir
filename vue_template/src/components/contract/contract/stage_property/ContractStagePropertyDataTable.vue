@@ -49,7 +49,7 @@
 
 <script>
     import TableBase from "@/mixins/TableBase";
-    import CoordinationActForm from "./CoordinationActForm";
+    import CoordinationActForm from "./ContractStagePropertyForm";
 
 
     export default {
@@ -67,7 +67,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'register_payment',
-                base_url: `${this.$config.domen}/contracts/register-payment/`,
+                base_url: `${config.domen}/contracts/register-payment/`,
                 object_details: [],
                 extra_params:{},
                 headers: [

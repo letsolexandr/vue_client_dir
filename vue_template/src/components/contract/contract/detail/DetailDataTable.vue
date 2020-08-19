@@ -2,16 +2,16 @@
     <v-card>
         <v-card-title primary-title>
             <div>
-                <div class="headline">Деталі послуг по договору</div>
+                <div class="headline">Тарифний план</div>
             </div>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
-            <DetailForm :contract_id="contract_id"></DetailForm>
+            <DetailForm :contract_id="contract_id" :start_period="start_period" ></DetailForm>
         </v-card-title>
         <v-card-text>
             <BaseDataTable :namespace="namespace"
-                           dense="1"
+                           dense
                            :module_name="module_name"
                            :base_url="base_url"
                            :headers="headers"
@@ -21,6 +21,9 @@
                            :static_model_params="static_model_params"
                            :reload_after_delete="reload_after_delete"
             >
+                <template slot="actual_date" slot-scope="{props}">
+                  з {{props.item.start_period}} по {{props.item.end_period}}
+                </template>
             </BaseDataTable>
         </v-card-text>
 
@@ -30,6 +33,7 @@
 <script>
     import DetailForm from "./DetailForm";
     import BaseDataTable from "../../../../base/BaseDataTable";
+    import config from "../config";
 
     export default {
         name: "DetailDataTable",
@@ -41,13 +45,21 @@
                 default: () => {
                     return 0
                 }
+            },
+            start_period: {
+                type: String,
+                required: false,
+            },
+            end_period: {
+                type: String,
+                required: false,
             }
         },
         data() {
             return {
                 namespace: 'contract',
                 module_name: 'subscription',
-                base_url: `${this.$config.domen}/contracts/contract-subscription/`,
+                base_url: `${config.domen}/contracts/contract-subscription/`,
                 object_details: [],
                 reload_after_delete: true,
                 extra_params: {},
@@ -84,6 +96,20 @@
                         value: 'total_price_pdv',
                         visible: true,
                     },
+                    {
+                        text: 'Період дії тарифу',
+                        value: 'actual_date',
+                        sortable:false,
+                        visible: true,
+                    },
+                    // {
+                    //     text: 'Дійсний',
+                    //     value: 'is_legal',
+                    //     sortable:false,
+                    //     visible: true,
+                    //     widget:'yes_no'
+                    // },
+
                     {
                         text: 'Дії',
                         value: 'id',

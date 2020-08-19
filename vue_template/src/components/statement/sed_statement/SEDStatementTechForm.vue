@@ -50,20 +50,18 @@
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../base/DataPicker";
     import Autocomplete from "../../../base/Autocomplete";
+    import conf from "./conf";
 
     export default {
         components: {Autocomplete, DataPicker},
-        mixins: [FormBase],
+        mixins: [FormBase,conf],
         data() {
             return {
-                namespace: 'statement',
-                module_name: 'sed_statement',
                 form_name:'tech_statement',
                 fields: {
-                    status: 1,//Нова
-                    statement_type: 'web'//Тип заявки
+                    status: 1, //Нова
+                    statement_type: 'web' //Тип заявки
                 },
-                base_url: `${this.$config.domen}/statement/sed-statement/`
             }
         }
     }

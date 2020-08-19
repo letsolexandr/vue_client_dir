@@ -21,12 +21,12 @@
 <script>
     import AddUserForm from './AddUserForm'
     import EditUserForm from './EditUserForm'
-    import TableBase from "@/mixins/TableBase";
+    import TableMethods from "../../../mixins/TableMethods";
     import DefaultDataTable from "../../../base/DefaultDataTable";
     import ChangePasswordForm from "./ChangePasswordForm";
 
     export default {
-        mixins:[TableBase],
+        mixins:[TableMethods],
         components: {ChangePasswordForm, DefaultDataTable, AddUserForm, EditUserForm},
         data() {
             return {

@@ -185,6 +185,7 @@
                 if (this.filter_name && this.filter_param) {
                     params[this.filter_name] = this.filter_param
                 }
+                debugger
                 axios.get(self.url, {
                     params
                 }).then((response) => {

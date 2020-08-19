@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import vuetify from './plugins/vuetify';
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/dist/vuetify.min.css'
+import axios from './plugins/axios';
 
 import store from './store';
 import router from './router'
@@ -17,9 +18,10 @@ Vue.use(CKEditor);
 Vue.use(VueRouter)
 Vue.use(Breabcrumbs)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-Vue.prototype.$config = require('@/config').default
+Vue.prototype.$config = require('@/config').default;
+Vue.prototype.axios= axios;
 
 new Vue({
     vuetify,

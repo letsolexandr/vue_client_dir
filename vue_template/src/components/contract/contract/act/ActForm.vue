@@ -79,7 +79,7 @@
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
     import FileFieldV1 from "../../../../base/FileFieldV1";
-
+    import config from "../config";
     export default {
         props: {
             can_add: {
@@ -100,7 +100,7 @@
                 namespace: 'contract',
                 module_name: 'register_act',
                 form_errors: {},
-                base_url: `${this.$config.domen}/contracts/register-act/`
+                base_url: `${config.domen}/contracts/register-act/`
 
             }
         },

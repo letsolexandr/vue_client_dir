@@ -1,4 +1,3 @@
-import axios from "axios";
 import {handle_http_error} from "./errorHandlers"
 import {show_message_in_snackbar} from "./common"
 
@@ -23,15 +22,14 @@ function getFormData(form) {
 }
 
 function getSendParams(form) {
-
-    let fields = form.fields
+    let fields = form.fields;
     var id, http;
     if (fields.id) {
         id = fields.id + '/'
-        http = axios.patch
+        http = form.axios.patch
     } else {
         id = ''
-        http = axios.post
+        http = form.axios.post
     }
     return {id, http}
 }
@@ -63,6 +61,11 @@ function thenFormSave(form, response) {
         form.update_element.reloadData(response.data.id)
     }
 
+    if(form.on_save_call_event){
+        form.$root.$emit(form.on_save_call_event)
+
+    }
+
 
 }
 
@@ -70,9 +73,10 @@ function saveData(form, module) {
     //debugger
     console.log('saveData')
     const self = this;
-    let base_url = form.base_url || module.table.base_url
+    let base_url = form.path_url || form.base_url || module.table.base_url
     const static_form_data = form.static_form_fields || {}
-    const req_params = Object.assign(static_form_data, form.getNoFileFieldV1s())
+    const _req_params = Object.assign( form.getNoFileFieldV1s(),static_form_data)
+    const req_params = form.getAllowedToSend(_req_params)
     //Object.freeze(req_params);
     const send_params = getSendParams(form)
     const http = send_params.http
@@ -97,7 +101,7 @@ function saveData(form, module) {
             /* якщо успішно, і форма містить файли відправляємо файли
             якщо форма містить файл - відправляємо форму з файлом */
             if (form_data.has_files) {
-                return axios.patch(`${base_url}${response.data.id}/`, form_data)
+                return form.axios.patch(`${base_url}${response.data.id}/`, form_data)
             } else {
                 /* якщо форма не містить файл - повертаємо проміс  з результатами попереднього запиту */
                 return response

@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-btn small color="primary"
-               @click.stop="openAddObjectForm({module:module_name, initial:Object.assign(initial,initial_expand),form_name: form_name})">
+               @click.stop="openAddObjectForm({module:module_name, initial:Object.assign(initial,initial_expand,{statement_data}),form_name: form_name})">
             {{btn_title}}
         </v-btn>
-        <v-layout row justify-center>
+        <v-layout row >
             <v-dialog v-model="dialog" persistent max-width="800px">
                 <v-card>
                     <v-card-title>
@@ -21,7 +21,7 @@
                                                       :error-messages='form_errors.statement'>
                                         </v-text-field>
                                     </v-flex>
-                                    <v-flex xs12>
+                                    <v-flex xs6>
                                         <v-switch label="Згенерувати номер автоматично?"
                                                   :error-messages='form_errors.automatic_number_gen'
                                                   v-model="fields.automatic_number_gen"
@@ -87,14 +87,16 @@
 <script>
     import Autocomplete from '@/base/Autocomplete';
 
-    import FormBase from "@/mixins/FormBase";
+    import FormBase from "../../../mixins/FormBase";
     import DataPicker from "@/base/DataPicker";
     import FileFieldV1 from "@/base/FileFieldV1";
     import OrganizationAddForm from "../../admin/organization/OrganizationAddForm";
     import LoaderBar from "../../../base/LoaderBar";
+    import {root} from "./config";
+    import axios from 'axios';
 
     function getExpirationDate() {
-        let date = `${(new Date()).getFullYear()}-12-31`
+        let date = `${(new Date()).getFullYear()}-12-31`;
         return date;
 
     }
@@ -121,14 +123,16 @@
                 }
             }
         },
+        mounted() {
+            this.get_contract_deatils(this.initial.statement)
+        },
         watch: {
             fields: {
                 handler(newVal) {
                     this.set_start_of_contract(newVal)
-
                 },
                 deep: true
-            }
+            },
         },
         data() {
             return {
@@ -136,26 +140,40 @@
                 form_errors: {},
                 fields: {},
                 loadingPGBar: false,
+                statement_data:{},
                 initial_expand: {expiration_date: getExpirationDate()},
                 form_name: 'statement_contract',
                 redirect_to_card: true,
                 card_url: '/main/contracts/',
-                base_url: `${this.$config.domen}/statement/create-contract/`
+                base_url: `${this.$config.domen}/contracts/create-contract-from-statement`
 
             }
         },
         methods:{
+            get_contract_deatils(uuid){
+                const url = `${root}/api/statement/statement-uuid-info/`+uuid;
+                axios.get(url).then((response) => {
+                        if (response.data.results && response.data.results.length) {
+                            debugger
+                            this.statement_data = response.data.results[0]['all_data'];
+                        } else if (response.data) {
+                            debugger
+                            this.statement_data = response.data['all_data'];
+                        }
+                    }
+                ).catch((error) => {
+                    console.log(error)
+                })
+            },
             set_start_of_contract(newVal){
                 if (newVal.start_date) {
                     let start_date = new Date(newVal.start_date);
                     let sd;
                     if (start_date.getDate() > 10) {
-
                         sd = new Date(start_date.getFullYear(), start_date.getMonth() + 1, 1).toLocaleDateString().split('.')
                     } else {
                         sd = new Date(start_date.getFullYear(), start_date.getMonth(), 1).toLocaleDateString().split('.')
                     }
-                    //debugger
                     this.fields.start_of_contract=`${sd[2]}-${sd[1]}-${sd[0]}`
 
                 }

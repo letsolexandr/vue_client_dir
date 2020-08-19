@@ -113,9 +113,9 @@
                                                             <a @click="go_to('/main/contracts/',props.item.id)">
                                                                 {{getItem(header.value ,props.item,header)}}</a>
                                                         </template>
-                                                        <template v-else-if="header.widget==='checkbox'">
-                                                            <v-checkbox disabled
-                                                                        :value="getItem(header.value,props.item,header)">
+                                                        <template v-else-if="header.widget==='checkbox'" >
+                                                            <v-checkbox disabled :key="`checkbox-${props.item.id}`"
+                                                                        :value="props.item[header.value]">
                                                             </v-checkbox>
                                                         </template>
                                                         <template v-else-if="header.widget==='yes_no'">

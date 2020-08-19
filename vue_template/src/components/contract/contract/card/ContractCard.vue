@@ -17,10 +17,10 @@
                             РЕКВІЗИТИ
                         </v-tab>
                         <v-tab key="details">
-                            ДЕТАЛІ
+                            ТАРИФ
                         </v-tab>
                         <v-tab key="details2">
-                            ДЕТАЛІ2
+                            ПОСЛУГИ
                         </v-tab>
                         <v-tab key="coordination">
                             ПОГОДЖЕННЯ
@@ -44,7 +44,7 @@
                             <StagePropertyDetail :object_id="id" filter_field_name="contract__id"></StagePropertyDetail>
                         </v-tab-item>
                         <v-tab-item key="details">
-                            <DetailDataTable :contract_id="id" ></DetailDataTable>
+                            <DetailDataTable :contract_id="id" :start_period="start_of_contract" :end_period="expiration_date"></DetailDataTable>
                         </v-tab-item>
                         <v-tab-item key="details2">
                             <ContractProductDataTable :contract_id="id" ></ContractProductDataTable>
@@ -84,6 +84,7 @@
     import DropzoneComponent from "../../../../base/dropzone/DropzoneComponent";
     import DetailDataTable from "../detail/DetailDataTable";
     import ContractProductDataTable from "../products/ContractProductDataTable";
+    import config from "../config";
 
     export default {
         name: "ContractCard",
@@ -104,7 +105,9 @@
                 id: 0,
                 tabs: null,
                 unique_uuid: '',
-                base_url: `${this.$config.domen}/contracts/contract/`,
+                start_of_contract:null,
+                expiration_date:null,
+                base_url: `${config.domen}/contracts/contract/`,
 
             }
         },
@@ -134,7 +137,10 @@
             getData() {
                 let url = this.base_url + this.id
                 axios.get(url).then((response) => {
-                        this.unique_uuid = response.data.unique_uuid
+                        this.unique_uuid = response.data.unique_uuid;
+                        this.start_of_contract = response.data.start_of_contract;
+                        this.expiration_date = response.data.expiration_date;
+
                         debugger
                     }
                 ).catch((error) => {

@@ -2,6 +2,7 @@
     <DefaultDataTable :namespace="namespace"
                       :module_name="module_name"
                       :base_url="base_url"
+                      use_card
                       :headers="headers">
         <template slot="form">
             <ProductForm/>
@@ -30,6 +31,7 @@
                     {
                         text: 'Назва',
                         value: 'name',
+                        url: '/main/subscription/',
                         visible: true,
                     },
                     {

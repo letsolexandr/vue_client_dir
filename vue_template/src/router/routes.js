@@ -100,7 +100,21 @@ const routes = [{
                     requiresAuth: true,
                     breadcrumb: 'Послуги',
                     requires_permission: 'view_product',
-                }
+                },
+                children: [
+                    {
+                        name: "product__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/dict_register/product/ProductCard"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_product',
+                            breadcrumb: 'Послуга'
+                        }
+                    }
+                ]
             },
             {
                 name: "subscription",
@@ -112,7 +126,21 @@ const routes = [{
                     requiresAuth: true,
                     breadcrumb: 'Типи абонплат',
                     requires_permission: 'view_product',
-                }
+                },
+                children: [
+                    {
+                        name: "subscription__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/dict_register/subscription/SubscriptionCard"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_product',
+                            breadcrumb: 'Тарифний план'
+                        }
+                    }
+                ]
             },
             {
                 name: "property_type",
@@ -254,6 +282,33 @@ const routes = [{
                 ]
             },
             {
+                name: "user_statement",
+                path: "user-statement",
+                components: {
+                    content: () => import("../components/cabinet/user_statement/UserSEDStatementDataTable")
+                },
+                meta: {
+                    requiresAuth: true,
+                    requires_permission: 'view_sedstatement',
+                    breadcrumb: 'Зявки на підключення до СЕВ ОВВ'
+                },
+
+                children: [
+                    {
+                        name: "user_sed_statement__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/cabinet/user_statement/UserSEDStatementDetail"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_sedstatement',
+                            breadcrumb: 'Заявка'
+                        }
+                    }
+                ]
+            },
+            {
                 name: "sed_statement_new",
                 path: "sed_statement_new",
                 components: {
@@ -274,7 +329,7 @@ const routes = [{
                 meta: {
                     requiresAuth: true,
                     requires_permission: 'view_sedstatement',
-                    breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Прострочені)'
+                    breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Обробляються)'
                 }
             },
             {

@@ -5,9 +5,20 @@
                       :extra_params="extra_params"
                       :headers="headers"
                       :choices="choices"
+                      disableDelete
                       use_card>
         <template slot="form">
             <SEDStatementForm/>
+        </template>
+        <template slot="id" slot-scope="{props}">
+            <template v-show="showEdit(props.item)">
+                <v-icon small class="mr-2" @click="getObject({
+                                                            id:props.item.id,
+                                                            namespace: namespace,
+                                                            module: module_name})">
+                    edit
+                </v-icon>
+            </template>
         </template>
     </DefaultDataTable>
 </template>
@@ -29,20 +40,22 @@
             display_name: 'Не вказано'
         }
     ];
+    import {domen} from "./config";
+    import conf from "./conf";
+    import TableBase from "../../../mixins/TableBase";
 
     export default {
+        mixins: [TableBase, conf],
         components: {DefaultDataTable, SEDStatementForm},
         data() {
             return {
-                namespace: 'statement',
-                module_name: 'sed_statement',
-                base_url: `${this.$config.domen}/statement/sed-statement/`,
                 extra_params: {expand: 'contractor_expand'},
                 choices: {
                     is_contractor_connected: default_yes_no,
                     is_send_to_technician: default_yes_no
                 },
-                headers: [{
+                headers: [
+                    {
                     text: 'Номер звернення',
                     align: 'center',
                     visible: true,
@@ -57,7 +70,7 @@
                         visible: true,
                         filter: {
                             type: 'autocomplete',
-                            url: `${this.$config.domen}/api-base/organization/`,
+                            url: `${domen}/api-base/organization/`,
                             request_param: 'contractor',
                             value: null
                         }
@@ -88,6 +101,13 @@
                         align: 'center',
                         visible: true,
                         choice_name: 'status',
+                        widget: 'colored_badge',
+                        choice_colors: {
+                            '1': "#e56e8a",
+                            '2': "#FDD835",
+                            '3': "#81af70",
+                            '4': "#a09b9a"
+                        },
                         value: 'status',
                         filter: {type: 'select_choices', value: null},
                     },
@@ -113,6 +133,12 @@
                         value: 'id'
                     },
                 ]
+            }
+        },
+        methods:{
+            showEdit(item){
+                debugger
+                return ['3','4','5'].indexOf(item.status)===-1
             }
         }
     }

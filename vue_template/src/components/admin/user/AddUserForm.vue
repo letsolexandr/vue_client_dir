@@ -43,6 +43,10 @@
                                                   :error-messages='form_errors.last_name'></v-text-field>
                                 </v-flex>
                                 <v-flex xs12>
+                                    <v-text-field label="ІПН" v-model="fields.ipn"
+                                                  :error-messages='form_errors.ipn'></v-text-field>
+                                </v-flex>
+                                <v-flex xs12>
                                     <Autocomplete
                                             label="Організація"
                                             :url="`${this.$config.domen}/api-base/organization/`"

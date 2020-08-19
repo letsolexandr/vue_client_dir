@@ -16,7 +16,7 @@
                                 <v-flex xs12>
                                     <Autocomplete
                                             label="Догвір"
-                                            :url="`${this.$config.domen}/contracts/contract/`"
+                                            :url="`${config.domen}/contracts/contract/`"
                                             v-model="fields.contract"
                                             :error-messages='form_errors.contract'
                                             model="contract">
@@ -64,6 +64,7 @@
 
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
+    import config from "../config";
 
     export default {
         mixins: [FormBase],
@@ -75,7 +76,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'register_accurual',
-                base_url: `${this.$config.domen}/contracts/register-accurual/`
+                base_url: `${config.domen}/contracts/register-accurual/`
 
             }
         },

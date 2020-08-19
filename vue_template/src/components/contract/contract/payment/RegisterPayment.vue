@@ -29,7 +29,7 @@
 <script>
     import PaymentForm from "./PaymentForm";
     import BaseDataTable from "../../../../base/BaseDataTable";
-
+    import config from "../config";
     export default {
         name: "RegisterAct",
         components: {BaseDataTable, PaymentForm},
@@ -46,7 +46,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'register_payment',
-                base_url: `${this.$config.domen}/contracts/register-payment/`,
+                base_url: `${config.domen}/contracts/register-payment/`,
                 object_details: [],
                 reload_after_delete: true,
                 extra_params: {},

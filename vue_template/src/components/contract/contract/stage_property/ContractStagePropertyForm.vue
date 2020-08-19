@@ -135,6 +135,7 @@
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
     import FileFieldV1 from "../../../../base/FileFieldV1";
+    import config from "../config";
 
     export default {
         components: {FileFieldV1, DataPicker},
@@ -144,7 +145,7 @@
                 namespace: 'contract',
                 reload_on_save: true,
                 module_name: 'stage_property',
-                base_url: `${this.$config.domen}/contracts/stage-property/`,
+                base_url: `${config.domen}/contracts/stage-property/`,
 
             }
         },

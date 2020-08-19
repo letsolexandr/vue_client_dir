@@ -15,6 +15,7 @@
 <script>
     import SEDStatementTechForm from "./SEDStatementTechForm";
     import DefaultDataTable from "../../../base/DefaultDataTable";
+    import config from "./conf";
 
     const default_yes_no = [
         {
@@ -30,16 +31,16 @@
             display_name: 'Не вказано'
         }
     ];
-
+    import {domen} from "./config";
+    import conf from "./conf";
     export default {
+        mixins:[conf],
         components: {DefaultDataTable, SEDStatementTechForm},
         data() {
             return {
-                namespace: 'statement',
-                module_name: 'sed_statement',
                 edit_form_name:'tech_statement',
-                base_url: `${this.$config.domen}/statement/sed-statement/`,
                 extra_params: {
+                    status:3,
                     expand: 'contractor_expand', is_send_to_technician: true,
                     is_contractor_connected: true
                 },
@@ -61,7 +62,7 @@
                         visible: true,
                         filter: {
                             type: 'autocomplete',
-                            url: `${this.$config.domen}/api-base/organization/`,
+                            url: `${domen}/api-base/organization/`,
                             request_param: 'contractor',
                             value: null
                         }
@@ -92,7 +93,14 @@
                         align: 'center',
                         visible: true,
                         choice_name: 'status',
-                        value: 'status'
+                        value: 'status',
+                        widget:'colored_badge',
+                        choice_colors:{
+                            '1':"#e56e8a",
+                            '2':"#FDD835",
+                            '3':"#81af70",
+                            '4':"#a09b9a"
+                        },
                     },
                     {
                         text: 'Контрагента підключено?',

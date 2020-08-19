@@ -13,6 +13,17 @@ function parseChoices(options) {
     })
 }
 
+function makeQueryString(url,params){
+    let esc  = encodeURIComponent;
+    let query = Object.keys(params)
+        .filter(k=>params[k])
+        .map(k => esc(k) + '=' + esc(params[k]))
+        .join('&');
+    return url+'?'+query
+
+}
+
+
 function parseFileFieldV1s(options) {
     /**
      * Обробляє дані та записує дані у списки вибору "choices"
@@ -61,7 +72,7 @@ function loadOptions() {
 
 function getFromChoices(key, choice_name) {
     let choices = this.choices[choice_name]
-    //console.log(key, choice_name)
+    console.log(key, choice_name)
 
     if (choices) {
         let choice = choices.find((item) => {
@@ -96,6 +107,6 @@ function go_to(url, id) {
 }
 
 
-export {loadOptions, parseFileFieldV1s, parseChoices, getFromChoices, getChoices, go_to};
+export {loadOptions, parseFileFieldV1s, parseChoices, getFromChoices, getChoices, go_to,makeQueryString};
 
 

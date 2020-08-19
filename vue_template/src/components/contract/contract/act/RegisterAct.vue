@@ -30,7 +30,7 @@
 
     import ActForm from "./ActForm";
     import BaseDataTable from "../../../../base/BaseDataTable";
-
+    import config from "../config";
     export default {
         name: "RegisterAct",
         components: {BaseDataTable, ActForm},
@@ -47,7 +47,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'register_act',
-                base_url: `${this.$config.domen}/contracts/register-act/`,
+                base_url: `${config.domen}/contracts/register-act/`,
                 extra_watch: {
                     param_name: 'contract',
                 },

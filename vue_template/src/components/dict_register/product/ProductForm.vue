@@ -27,30 +27,6 @@
 
                                     </v-text-field>
                                 </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field label="Ціна"
-                                                  v-model="fields.price"
-                                                  :error-messages='form_errors.price'
-                                                  required>
-
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field label="ПДВ"
-                                                  v-model="fields.pdv"
-                                                  :error-messages='form_errors.pdv'
-                                                  required>
-
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field label="Ціна з ПДВ"
-                                                  v-model="fields.price_pdv"
-                                                  :error-messages='form_errors.price_pdv'
-                                                  required>
-
-                                    </v-text-field>
-                                </v-flex>
                             </v-layout>
                         </v-container>
                         <small>*indicates required field</small>
@@ -73,20 +49,7 @@
 
     export default {
         mixins: [FormBase],
-        watch: {
-            fields: {
-                handler(newVal, oldVal) {
 
-                    if (newVal.price) {
-                        let price = parseFloat(newVal.price);
-                        let pdv =  (price * 0.2);
-                        this.fields.pdv = pdv.toFixed(2);
-                        this.fields.price_pdv = (price + pdv).toFixed(2);
-                    }
-                },
-                deep: true
-            }
-        },
         data() {
             return {
                 namespace: 'dict',

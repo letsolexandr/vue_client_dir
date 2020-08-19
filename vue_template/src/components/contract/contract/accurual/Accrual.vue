@@ -30,6 +30,7 @@
     import RegisterAccrualForm from "./AccrualForm"
     import BaseDataTable from "../../../../base/BaseDataTable"
     import axios from 'axios';
+    import config from "../config";
 
     export default {
         components: {BaseDataTable, RegisterAccrualForm},
@@ -55,7 +56,7 @@
                     param_name: 'contract__id',
                 },
                 reload_after_delete: false,
-                base_url: `${this.$config.domen}/contracts/register-accurual/`,
+                base_url: `${config.domen}/contracts/register-accurual/`,
                 headers: [
                     {
                         text: '№ Договору',
@@ -64,7 +65,7 @@
                         value: 'contract.__str__',
                         filter: {
                             type: 'autocomplete',
-                            url: `${this.$config.domen}/contracts/contract/`,
+                            url: `${config.domen}/contracts/contract/`,
                             request_param: 'contract__id',
                             value: null
                         }
@@ -117,7 +118,7 @@
         },
         methods: {
             calculateAccrual(event) {
-                const url = `${this.$config.domen}/api-base/rpc`;
+                const url = `${config.domen}/api-base/rpc`;
                 const params = {
                     app_label: 'contracts',
                     model: 'contract',
@@ -144,7 +145,10 @@
                         });
                     }
                 ).catch((error) => {
-                    info_dialog.close();
+                    debugger
+                    this.$root.$emit('open-info-dialog',{message:error.response.data['non_field_errors']})
+                    //info_dialog.close();
+
                 })
             }
         }

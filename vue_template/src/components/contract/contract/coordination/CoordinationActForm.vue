@@ -66,7 +66,7 @@
     import FormBase from "@/mixins/FormBase";
     import DataPicker from "../../../../base/DataPicker";
     import FileFieldV1 from "../../../../base/FileFieldV1";
-
+    import config from "../config";
     export default {
         components: {FileFieldV1, DataPicker},
         mixins: [FormBase],
@@ -83,7 +83,7 @@
                 module_name: 'coordination',
                 static_form_fields:{"app_label":"contracts",
                                     "model": "contract",},
-                base_url: `${this.$config.domen}/contracts/coordination/`,
+                base_url: `${config.domen}/contracts/coordination/`,
 
             }
         },

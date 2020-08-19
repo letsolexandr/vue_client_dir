@@ -10,11 +10,14 @@ export default {
             default: 0,
             required: false
         },
+        on_save_call_event:{
+            type:String,
+            required:false
+        },
         extra_fields: {
             type: Object,
             default: function () {
-                let l = {}
-                return l
+                return {}
             },
             required: false
         }
@@ -27,6 +30,7 @@ export default {
             loadingPGBar: false,
             static_form_fields: {},
             fields: {},
+            allowed_to_send:null,
             choices: {},
             form_errors: {},
             file_fields: [],
@@ -38,6 +42,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
+
             this.$store.dispatch('addFormToStore', {
                 module_name: this.module_name, namespace: this.namespace,
                 form: this, form_name: this.form_name
@@ -96,7 +101,7 @@ export default {
             return this
         },
         getNoFileFieldV1s() {
-            //debugger
+
             const not_file_fields = {}
             for (let [key, value] of Object.entries(this.fields)) {
                 if (this.file_fields.indexOf(key) === -1) {
@@ -105,6 +110,20 @@ export default {
             }
             //debugger
             return not_file_fields
+        },
+        getAllowedToSend(fields){
+
+            if (! this.allowed_to_send){
+                return fields
+            }
+            const allowed_to_send = {}
+            for (let [key, value] of Object.entries(fields)) {
+                if (this.allowed_to_send.indexOf(key) !== -1) {
+                    allowed_to_send[key] = value
+                }
+            }
+
+            return allowed_to_send
         },
         updateField(evt, field) {
             this.fields[field] = evt;

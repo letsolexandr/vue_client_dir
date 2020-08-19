@@ -17,6 +17,7 @@
                     :dense="dense"
                     :outlined="outlined"
                     v-on="on"
+                    :disabled="disabled"
             ></v-text-field>
         </template>
         <v-date-picker v-model="date_c"
@@ -33,7 +34,7 @@
             prop: 'value',
             event: 'update:date'
         },
-        props: ['value', 'label','error_messages','dense','outlined'],
+        props: ['value', 'label','error_messages','errorMessages','dense','outlined','disabled'],
         name: "DataPicker",
         data() {
             return {
@@ -47,6 +48,10 @@
                 //debugger
             },
             error_messages:function(newValue, oldValue){
+                //debugger
+                this.errors = newValue
+            },
+            errorMessages:function(newValue, oldValue){
                 //debugger
                 this.errors = newValue
             }

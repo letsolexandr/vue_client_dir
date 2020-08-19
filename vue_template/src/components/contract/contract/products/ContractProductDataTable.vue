@@ -11,7 +11,7 @@
         </v-card-title>
         <v-card-text>
             <BaseDataTable :namespace="namespace"
-                           dense="1"
+                           dense
                            :module_name="module_name"
                            :base_url="base_url"
                            :headers="headers"
@@ -30,6 +30,7 @@
 <script>
     import ContractProductForm from "./ContractProductForm";
     import BaseDataTable from "../../../../base/BaseDataTable";
+    import config from "../config";
 
     export default {
         name: "ContractProductDataTable",
@@ -47,7 +48,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'products',
-                base_url: `${this.$config.domen}/contracts/contract-products/`,
+                base_url: `${config.domen}/contracts/contract-products/`,
                 object_details: [],
                 reload_after_delete: true,
                 extra_params: {},

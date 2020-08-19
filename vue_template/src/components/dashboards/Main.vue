@@ -13,12 +13,12 @@
             <v-flex xs4>
                 <ServiceDesk></ServiceDesk>
             </v-flex>
-            <!--<v-flex xs4>
-                <DynamicArea></DynamicArea>
+            <v-flex xs12>
+                <SEVCommercialTable></SEVCommercialTable>
             </v-flex>
-            <v-flex xs4>
-                <DynamicTimeLine></DynamicTimeLine>
-            </v-flex>-->
+            <v-flex xs12>
+                <SEVCOVTable></SEVCOVTable>
+            </v-flex>
         </v-layout>
     </v-container>
 
@@ -35,6 +35,8 @@
     import ServiceDesk from "./ServiceDesk";
     import DynamicTable from "./DynamicTable";
     import SEVQueueAllTable from "./SEVQueueAllTable";
+    import SEVCommercialTable from "./SEVCommercialTable";
+    import SEVCOVTable from "./SEVCOVTable";
 
     var echarts = require('echarts/lib/echarts')
     require('echarts/lib/chart/pie');
@@ -44,6 +46,8 @@
 
     export default {
         components: {
+            SEVCOVTable,
+            SEVCommercialTable,
             SEVQueueAllTable,
             DynamicTable,
             ServiceDesk,

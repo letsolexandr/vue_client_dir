@@ -48,6 +48,7 @@
             }
         },
         mounted() {
+            this.registerEvent()
             this.$store.dispatch('addFormToStore', {
                 module_name: this.module_name,
                 form: this,
@@ -61,6 +62,9 @@
                 })
         },
         methods: {
+            registerEvent(){
+                this.$root.$on('open-info-dialog', this.open);
+            },
             open({message, title, show_loader = false, disabled_close = false, update_element = null}) {
                 debugger
                 this.message = message;

@@ -30,7 +30,7 @@
 <script>
     import CoordinationActForm from "./CoordinationActForm";
     import BaseDataTable from "../../../../base/BaseDataTable";
-
+    import config from "../config";
 
     export default {
         name: "RegisterAct",
@@ -46,7 +46,7 @@
             return {
                 namespace: 'contract',
                 module_name: 'coordination',
-                base_url: `${this.$config.domen}/contracts/coordination/`,
+                base_url: `${config.domen}/contracts/coordination/`,
                 extra_params: {
                     "app_label": "contracts",
                     "model": "contract"

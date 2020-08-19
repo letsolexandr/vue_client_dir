@@ -16,6 +16,7 @@
             :outlined="outlined"
             :placeholder="placeholder"
             :error-messages="error_messages"
+            :disabled="disabled"
     >
         <template v-slot:no-data>
             <v-list-item>
@@ -52,7 +53,7 @@
 
         props: ['value', 'url', 'multiple', 'label',
             'error_messages', 'filter_name', 'filter_param',
-            'add_form', 'edit_form', 'model', 'model_namespace', 'placeholder', 'outlined'],
+            'add_form', 'edit_form', 'model', 'model_namespace', 'placeholder', 'outlined','disabled'],
         data() {
             return {
                 loading: false,

@@ -27,14 +27,7 @@
 
                                     </v-text-field>
                                 </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field label="Кількість включена в тариф"
-                                                  v-model="fields.s_count"
-                                                  :error-messages='form_errors.s_count'
-                                                  required>
 
-                                    </v-text-field>
-                                </v-flex>
 
                                 <v-flex xs12>
                                     <v-text-field label="Ціна"

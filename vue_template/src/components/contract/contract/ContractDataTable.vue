@@ -1,11 +1,33 @@
 <template>
+
     <DefaultDataTable :namespace="namespace"
                       :module_name="module_name"
                       :base_url="base_url"
+                      :xlsx-base-url="xlsx_base_url"
                       :headers="headers"
-                      use_card>
+                      use_card
+                      export-excel
+                      show-diagram>
         <template slot="form">
             <ContractForm/>
+        </template>
+        <template slot="diagram">
+            <ContractChartDiagram></ContractChartDiagram>
+            <ContractChartDiagramPrice></ContractChartDiagramPrice>
+            <ContractChartDiagramAccrual></ContractChartDiagramAccrual>
+            <ContractChartDiagramLargestDebtors></ContractChartDiagramLargestDebtors>
+        </template>
+        <template slot="contractfinance.total_balance" slot-scope="{props}">
+            <ColoredBadge :value="props.item.contractfinance.total_balance"> </ColoredBadge>
+        </template>
+        <template slot="one_time_service" slot-scope="{props}">
+            <template v-if="props.item.one_time_service">
+                <v-chip class="ma-2" small>K</v-chip>
+            </template>
+            <template v-else>
+                <v-chip class="ma-2" small>П</v-chip>
+            </template>
+
         </template>
     </DefaultDataTable>
 </template>
@@ -13,14 +35,25 @@
 <script>
     import ContractForm from "./ContractForm";
     import DefaultDataTable from "../../../base/DefaultDataTable";
+    import config from "./config";
+    import ContractChartDiagram from "./ContractChartDiagram";
+    import ContractChartDiagramPrice from "./ContractChartDiagramPrice";
+    import ContractChartDiagramAccrual from "./ContractChartDiagramAccrual";
+    import ColoredBadge from "./ColoredBadge";
+    import ContractChartDiagramLargestDebtors from "./ContractChartDiagramLargestDebtors";
 
     export default {
-        components: {DefaultDataTable, ContractForm},
+        components: {
+            ContractChartDiagramLargestDebtors,
+            ColoredBadge,
+            ContractChartDiagramAccrual,
+            ContractChartDiagramPrice, ContractChartDiagram, DefaultDataTable, ContractForm},
         data() {
             return {
                 namespace: null,
                 module_name: 'contract',
-                base_url: `${this.$config.domen}/contracts/contract/`,
+                base_url: `${config.domen}/contracts/contract/`,
+                xlsx_base_url: `${config.domen}/contracts/xlsxcontract/`,
                 extra_params: {},
                 headers: [{
                     text: '№ Договору',
@@ -36,6 +69,12 @@
                         value: 'start_date',
                         visible: false,
                         filter: {type: 'date', value: null}
+                    },
+                    {
+                        text: 'Тип договору',
+                        value: 'one_time_service',
+                        visible: true,
+                        sortable:false
                     },
                     {
                         text: 'Початок дії договору',
@@ -93,7 +132,6 @@
                     {
                         text: 'Баланс',
                         value: 'contractfinance.total_balance',
-                        widget: 'colored_badge',
                         visible: true,
                         filter: {
                             type: 'comparison',

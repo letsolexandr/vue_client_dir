@@ -2,11 +2,8 @@
     <v-card>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
-                <v-flex xs4>
+                <v-flex xs12>
                     <SEDStatementDetail :object_id="id"/>
-                </v-flex>
-                <v-flex xs8>
-
                 </v-flex>
             </v-layout>
         </v-container>
