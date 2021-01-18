@@ -4,6 +4,7 @@
                       :module_name="module_name"
                       :base_url="base_url"
                       :xlsx-base-url="xlsx_base_url"
+                      :static_model_params="static_model_params"
                       :headers="headers"
                       use_card
                       export-excel
@@ -54,12 +55,12 @@
                 module_name: 'contract',
                 base_url: `${config.domen}/contracts/contract/`,
                 xlsx_base_url: `${config.domen}/contracts/xlsxcontract/`,
-                extra_params: {},
+                static_model_params: {status:'actual'},
                 headers: [{
                     text: '№ Договору',
                     align: 'left',
                     //sortable: false,
-                    url: '/main/contracts/',
+                    url: '/main/contracts-finance/',
                     value: 'number_contract',
                     visible: true,
                     filter: {type: 'text', value: null, request_param: 'number_contract__icontains'},
@@ -149,7 +150,7 @@
                         value: 'status',
                         visible: true,
                         choice_name: 'status',
-                        filter: {type: 'select_choices', value: null},
+                        //filter: {type: 'select_choices', value: null},
                     },
                     {
                         text: 'На контролі в бухгалтерії',

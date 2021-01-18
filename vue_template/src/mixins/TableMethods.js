@@ -152,8 +152,12 @@ export default {
                 const param_name = this.extra_watch.param_name;
                 //debugger
                 added_params[param_name] = this.object_id;
-                Object.assign(params, added_params)
+                Object.assign(params, added_params);
+                Object.assign(params, this.static_model_params)
             }
+            Object.assign(params, this.static_model_params);
+            debugger
+
             return params
         },
         getDataFromApi(api_params) {

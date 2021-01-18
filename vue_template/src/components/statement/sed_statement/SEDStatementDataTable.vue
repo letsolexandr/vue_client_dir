@@ -5,7 +5,6 @@
                       :extra_params="extra_params"
                       :headers="headers"
                       :choices="choices"
-                      disableDelete
                       use_card>
         <template slot="form">
             <SEDStatementForm/>

@@ -112,9 +112,21 @@
                                                                         {{getFileName(getItem(header.value,props.item,header))}}
                                                                     </a>
                                                                 </template>
+                                                                <template v-else-if="header.widget==='media_dialog'">
+
+                                                                    <v-chip @click="$root.$emit('open-media-dialog',{src:getItem(header.value,props.item,header)})">
+                                                                        {{getFileName(getItem(header.value,props.item,header))}}
+                                                                    </v-chip>
+                                                                </template>
+
                                                                 <template v-else-if="header.widget==='date'">
                                                                     {{formatDate(getItem(header.value,props.item,header))}}
                                                                 </template>
+
+                                                                <template v-else-if="header.widget==='boolean'">
+                                                                    <TrueFalseChip :status="getItem(header.value,props.item,header)"></TrueFalseChip>
+                                                                </template>
+
 
                                                                 <template v-else-if="header.widget==='colored_badge'">
 
@@ -157,10 +169,11 @@
     import TableBase from "../mixins/TableBase"
     import ColumnController from "../base/ColumnController";
     import FilterColumn from "../base/FilterColumn";
+    import TrueFalseChip from "./TrueFalseChip";
 
     export default {
         mixins: [TableBase],
-        components: {FilterColumn, ColumnController},
+        components: {TrueFalseChip, FilterColumn, ColumnController},
         props: {
             headers: {
                 type: Array,
@@ -223,6 +236,13 @@
                     return {}
                 }
             },
+            static_model_params: {
+                type: Object,
+                required: false,
+                default: () => {
+                    return {}
+                }
+            },
             reload_after_delete: {
                 type: Boolean,
                 required: false,
@@ -237,7 +257,7 @@
             },
             enableFilters: {
                 type: Boolean,
-                default: false
+                default: true
             },
             custom_filters: {
                 type: Array,

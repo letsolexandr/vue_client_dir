@@ -7,6 +7,13 @@
         <v-layout row justify-center>
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <v-card>
+                    <v-overlay
+                            absolute
+                            :value="loadingPGBar"
+                            opacity="0.8"
+                    >
+                        <v-progress-circular indeterminate size="64"></v-progress-circular>
+                    </v-overlay>
                     <v-card-title>
                         <span class="headline">
                             Заявка на підключення до СЕВ СЕВ
@@ -151,7 +158,7 @@
                                             v-model="fields.statement_date"
                                             :error_messages="form_errors.statement_date"
                                             label="Дата заявки"
-                                    disabled="1">
+                                            disabled="1">
                                     </DataPicker>
                                 </v-flex>
                                 <v-flex xs12>
@@ -182,22 +189,25 @@
                                     </v-select>
                                 </v-flex>
                                 <v-flex xs12>
+                                    <v-select label="Тип фінансування організації замовника"
+                                              v-model="fields.finance_type"
+                                              :error-messages='form_errors.finance_type'
+                                              :items="choices.finance_type"
+                                              item-text="display_name"
+                                              item-value="value">
+                                    </v-select>
+                                </v-flex>
+                                <v-flex xs12>
                                     <v-textarea v-show="fields.status==='4'" v-model="fields.reject_reason"
                                                 label="Причина відмови"></v-textarea>
 
                                 </v-flex>
+
                                 <v-flex xs12>
-                                    <v-checkbox
-                                            label="Направлено в технічний відділ?"
-                                            v-model="fields.is_send_to_technician"
-                                            color="primary">
-                                    </v-checkbox>
-                                </v-flex>
-                                <v-flex xs12>
-                                    <v-checkbox
-                                            label="Організація підключена?"
-                                            v-model="fields.is_contractor_connected"
-                                            color="primary">
+                                    <v-checkbox v-show="fields.status==='3'"
+                                                label="Відправити заявку в технічний відділ?"
+                                                v-model="fields.is_send_to_technician"
+                                                color="primary">
                                     </v-checkbox>
                                 </v-flex>
 
@@ -233,10 +243,8 @@
         mixins: [FormBase, conf],
         data() {
             return {
-                fields: {
-                    status: 1,//Нова
-                    statement_type: 'web'//Тип заявки
-                },
+                loadingPGBar:false,
+                allowed_to_send: ['status', 'is_contractor_connected', 'is_send_to_technician', 'status', 'reject_reason','finance_type'],
             }
         }
     }

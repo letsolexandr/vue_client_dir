@@ -93,6 +93,11 @@ const state = {
                     text: 'Договори',
                     url: "/main/contracts",
                     requires_permission: 'view_contract',
+                },                {
+                    icon: 'mdi-file-document-box-multiple-outline',
+                    text: 'Договори (бухгалтерія)',
+                    url: "/main/contracts-finance",
+                    requires_permission: 'view_contract',
                 },
                 {
                     icon: 'mdi-file-table-outline',
@@ -139,19 +144,26 @@ const state = {
             children: [
                 {
                     icon: 'mdi-file-document',
-                    text: 'Нові заявки на підключення до СЕВСЕД',
+                    text: 'Нові заявки на підключення до СЕВОВВ',
                     url: "/main/sed_statement_new",
                     requires_permission: 'view_sedstatement',
                 },
                 {
                     icon: 'mdi-file-document',
-                    text: 'Прострочені заявки на підключення до СЕВСЕД',
+                    text: 'Обробляються заявки на підключення до СЕВОВВ',
                     url: "/main/sed_statement_7",
                     requires_permission: 'view_sedstatement',
                 },
                 {
                     icon: 'mdi-file-document',
-                    text: 'Заявки на підключення до СЕВСЕД',
+                    text: 'Виконані заявки на підключення до СЕВОВВ',
+                    url: "/main/sed_statement_3",
+                    requires_permission: 'view_sedstatement',
+                },
+
+                {
+                    icon: 'mdi-file-document',
+                    text: 'Всі заявки на підключення до СЕВОВВ',
                     url: "/main/sed_statement",
                     requires_permission: 'view_sedstatement',
                 },
@@ -167,13 +179,13 @@ const state = {
             children: [
                 {
                     icon: 'mdi-file-document',
-                    text: 'Нові заявки на підключення до СЕВСЕД',
+                    text: 'Нові заявки на підключення до СЕВОВВ',
                     url: "/main/sed_statement_tech_new",
                     requires_permission: 'view_sedstatement',
                 },
                 {
                     icon: 'mdi-file-document',
-                    text: 'Виконані заявки на підключення до СЕВСЕД',
+                    text: 'Виконані заявки на підключення до СЕВОВВ',
                     url: "/main/sed_statement_tech_complete",
                     requires_permission: 'view_sedstatement',
                 },

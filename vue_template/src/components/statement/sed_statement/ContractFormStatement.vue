@@ -57,8 +57,8 @@
                                     </v-flex>
                                     <v-flex xs6>
                                         <DataPicker
-                                                v-model="fields.start_payment"
-                                                :error_messages="form_errors.start_payment"
+                                                v-model="fields.start_accrual"
+                                                :error_messages="form_errors.start_accrual"
                                                 label="Дата початку оплати">
                                         </DataPicker>
                                     </v-flex>
@@ -141,7 +141,7 @@
                 fields: {},
                 loadingPGBar: false,
                 statement_data:{},
-                initial_expand: {expiration_date: getExpirationDate()},
+                initial_expand: {expiration_date: getExpirationDate(), automatic_number_gen:false},
                 form_name: 'statement_contract',
                 redirect_to_card: true,
                 card_url: '/main/contracts/',

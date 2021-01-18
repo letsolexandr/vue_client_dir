@@ -1,9 +1,9 @@
 <template>
-    <v-container height="100%">
+    <v-container>
         <template v-if="object_details.reg_number">
             <v-layout row wrap>
                 <v-flex xs4>
-                    <v-card height="100%">
+                    <v-card>
                         <v-card-title primary-title>
                             <div>
                                 <div class="headline"> Заявка: № {{object_details.reg_number}}</div>
@@ -20,39 +20,6 @@
                                     <v-col cols="6">
                                         <p class="text-sm-left">
                                             {{object_details.contractor_expand.__str__}}
-                                        </p>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <p class="text-sm-left">
-                                            Реєстраціний номер:
-                                        </p>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <p class="text-sm-left">
-                                            <template v-if="object_details.reg_number_registered">
-                                                {{object_details.reg_number_registered}}
-                                            </template>
-                                            <template v-else>
-                                                Номер відсутній
-                                                <v-tooltip
-                                                        v-model="show"
-                                                        top
-                                                >
-                                                    <template v-slot:activator="{ on, attrs }">
-                                                        <v-btn
-                                                                icon
-                                                                v-bind="attrs"
-                                                                v-on="on"
-                                                        >
-                                                            <v-icon color="info">
-                                                                info
-                                                            </v-icon>
-                                                        </v-btn>
-                                                    </template>
-                                                    <span>Реєстраціний номер може бути відсутній, якщо заявка подана до 01.01.2021</span>
-                                                </v-tooltip>
-                                            </template>
-
                                         </p>
                                     </v-col>
                                     <v-col cols="6">
@@ -85,19 +52,33 @@
                                             <v-icon large>mdi-certificate</v-icon>
                                         </a>
                                     </v-col>
+                                    <v-col cols="6">
+                                        <p class="text-sm-left">
+                                            Організація підключена:
+                                        </p>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <p class="text-sm-left">
+                                            <TrueFalseChip
+                                                    :status="object_details.is_contractor_connected"></TrueFalseChip>
+                                        </p>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <p class="text-sm-left">
+                                            Примітка:
+                                        </p>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <p class="text-sm-left">
+                                            {{object_details.note}}
+                                        </p>
+                                    </v-col>
 
                                     <v-flex xs12>
-                                        <p class="text-sm-left">
-                                            <ContractFormStatement
-                                                    :initial='{statement:object_details.unique_uuid,
-                                                    statement_type:object_details.statement_type,
-                                                    number_contract:object_details.reg_number_registered+" від "+ object_details.reg_date}'
-                                                    btn_title="Сформувати договір"></ContractFormStatement>
+                                        <p>
+                                            <SEDStatementTechForm show-btn title-btn="Змінити відмітку про підключення"
+                                                                  :object_id="object_details.id"></SEDStatementTechForm>
                                         </p>
-                                    </v-flex>
-                                    <v-flex sx12>
-                                        <SEDStatementSignDetail
-                                                :object_id="object_details.unique_uuid"></SEDStatementSignDetail>
                                     </v-flex>
                                 </v-row>
                             </v-container>
@@ -145,25 +126,10 @@
                                     </v-card-text>
                                 </v-card>
                             </v-tab-item>
-
-                            <v-tab-item key="register_pdf">
-
-                                <IframeViewer v-if="object_details.reg_doc"
-                                              :src="object_details.reg_doc"></IframeViewer>
-                                <v-card v-else>
-                                    <v-card-title>
-                                        Лист реєстрації відсутній
-                                    </v-card-title>
-                                    <v-card-subtitle>
-                                        Лист реєстрації може не формуватись, якщо заява подавалась до 01.01.2021.
-                                    </v-card-subtitle>
-                                </v-card>
-                            </v-tab-item>
                             <v-tab-item key="contragent">
                                 <SEDStatementContragentDetail
                                         :object_id="object_details.unique_uuid"></SEDStatementContragentDetail>
                             </v-tab-item>
-
                             <v-tab-item key="users">
                                 <SEDStatementUsers :object_id="object_details.unique_uuid"></SEDStatementUsers>
                             </v-tab-item>
@@ -208,14 +174,15 @@
     import SEDStatementIntegratorDetail from "./SEDStatementIntegratorDetail";
     import SEDStatementIntegratsinSystemDetail from "./SEDStatementIntegratsinSystemDetail";
     import IframeViewer from "../../../base/IframeViewer";
-    import SEDStatementSignDetail from "./SEDStatementSignDetail";
+    import SEDStatementTechForm from "./SEDStatementTechForm";
+    import TrueFalseChip from "../../../base/TrueFalseChip";
 
 
     export default {
         mixins: [DetailCard, conf],
         components: {
-            SEDStatementSignDetail,
-
+            TrueFalseChip,
+            SEDStatementTechForm,
             IframeViewer,
 
             SEDStatementIntegratsinSystemDetail,
@@ -228,7 +195,6 @@
                 tab: null,
                 tab_items: [
                     {key: 'pdf', title: 'Заява'},
-                    {key: 'register_pdf', title: 'Лист реєстрації'},
                     {key: 'contragent', title: 'Контрагент'},
                     {key: 'users', title: 'Користувачі'},
                     {key: 'additional_services', title: 'Додаткові послуги'},

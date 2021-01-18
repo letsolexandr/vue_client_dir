@@ -5,7 +5,9 @@
                       :extra_params="extra_params"
                       :headers="headers"
                       :edit_form_name="edit_form_name"
-                      :choices="choices">
+                      :choices="choices"
+                      disableDelete
+                      use_card>
         <template slot="form">
             <SEDStatementTechForm></SEDStatementTechForm>
         </template>
@@ -41,7 +43,6 @@
             return {
                 edit_form_name:'tech_statement',
                 extra_params: {
-                    status: 2,
                     expand: 'contractor_expand',
                     is_send_to_technician: true,
                     is_contractor_connected: false
@@ -54,6 +55,7 @@
                     text: 'Номер звернення',
                     align: 'center',
                     visible: true,
+                    url: `/main/sed_statement_tech_new/`,
                     value: 'reg_number',
                     filter: {type: 'text', value: null, request_param: 'reg_number__icontains'},
                 },
@@ -78,37 +80,17 @@
                         filter: {type: 'select_choices', value: null},
                     },
                     {
-                        text: 'Тип інтеграції',
-                        align: 'center',
-                        visible: true,
-                        choice_name: 'int_integration_type',
-                        value: 'int_integration_type'
-                    },
-                    {
                         text: 'Дата заявки',
                         align: 'center',
                         visible: true,
                         value: 'statement_date'
                     },
                     {
-                        text: 'Статус',
-                        align: 'center',
-                        visible: true,
-                        choice_name: 'status',
-                        value: 'status',
-                        widget:'colored_badge',
-                        choice_colors:{
-                            '1':"#e56e8a",
-                            '2':"#FDD835",
-                            '3':"#81af70",
-                            '4':"#a09b9a"
-                        },
-                    },
-                    {
                         text: 'Контрагента підключено?',
                         align: 'center',
                         visible: true,
-                        choice_name: 'is_contractor_connected',
+                        widget:'boolean',
+                        //choice_name: 'is_contractor_connected',
                         value: 'is_contractor_connected',
                     },
                     {

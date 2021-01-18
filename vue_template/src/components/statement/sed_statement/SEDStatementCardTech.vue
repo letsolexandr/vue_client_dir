@@ -1,9 +1,9 @@
 <template>
-    <v-card height="100%">
+    <v-card>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex xs12>
-                    <SEDStatementDetail :object_id="id"/>
+                    <SEDStatementDetailTech :object_id="id"/>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -12,12 +12,13 @@
 
 <script>
 
-    import SEDStatementDetail from "./SEDStatementDetail";
+
+    import SEDStatementDetailTech from "./SEDStatementDetailTech";
 
 
 
     export default {
-        components: { SEDStatementDetail},
+        components: {SEDStatementDetailTech},
         data() {
             return {
                 id: 0,

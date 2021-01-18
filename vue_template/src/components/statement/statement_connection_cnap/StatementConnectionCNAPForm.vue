@@ -110,7 +110,9 @@
                                     </FileFieldV1>
                                 </v-flex>
                                 <v-flex xs12>
-                                    <v-select :disabled="['3','4'].indexOf(fields.status)!==-1" label="Статус заявки"
+                                    <!--     -->
+                                    <v-select :disabled="['3','4'].indexOf(fields.status)!==-1"
+                                                label="Статус заявки"
                                               v-model="fields.status"
                                               :error-messages='form_errors.status'
                                               :items="choices.status"
@@ -119,8 +121,9 @@
                                     </v-select>
                                 </v-flex>
                                 <v-flex xs12>
-                                <v-textarea v-show="fields.status==='4'" v-model="fields.reject_reason"
-                                            label="Причина відмови"></v-textarea>
+                                    <v-textarea v-show="fields.status==='4'" v-model="fields.reject_reason"
+                                                :error-messages='form_errors.reject_reason'
+                                                label="Причина відмови"></v-textarea>
                                 </v-flex>
 
                             </v-layout>

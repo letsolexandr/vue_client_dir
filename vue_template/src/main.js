@@ -14,9 +14,13 @@ import Breabcrumbs from 'vue-2-breadcrumbs';
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
+import VueFriendlyIframe from 'vue-friendly-iframe';
+
+Vue.use(VueFriendlyIframe);
+
 Vue.use(CKEditor);
-Vue.use(VueRouter)
-Vue.use(Breabcrumbs)
+Vue.use(VueRouter);
+Vue.use(Breabcrumbs);
 
 Vue.config.productionTip = false;
 

@@ -4,7 +4,9 @@
                       :base_url="base_url"
                       :extra_params="extra_params"
                       :headers="headers"
-                      :choices="choices">
+                      :choices="choices"
+                      disableDelete
+                      use_card>
         <template slot="form">
             <SEDStatementForm/>
         </template>
@@ -45,6 +47,7 @@
                     text: 'Номер звернення',
                     align: 'center',
                     visible: true,
+                    url:'/main/sed_statement_7/',
                     value: 'reg_number',
                     filter: {type: 'text', value: null, request_param: 'reg_number__icontains'},
                 },

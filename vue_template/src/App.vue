@@ -17,6 +17,7 @@
                 <InfoDialog/>
                 <DeleteDialog/>
                 <ConfirmDialog/>
+                <MediaDialog></MediaDialog>
                 <OverleyLoading></OverleyLoading>
             </v-container>
         </v-content>
@@ -34,12 +35,14 @@
     import Breadscrum from "./layouts/Breadscrum";
     import ConfirmDialog from "./base/info_dialog/ConfirmDialog";
     import OverleyLoading from "./base/OverlayLoading";
+    import MediaDialog from "./base/info_dialog/MediaDialog";
 
     //!!!!!!Не видаляти
     /*ця штука глобально реструє модифікацію */
 
     export default {
         components: {
+            MediaDialog,
             OverleyLoading,
             ConfirmDialog,
             ToolBar,

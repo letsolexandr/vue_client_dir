@@ -1,10 +1,14 @@
 <template>
     <div>
-        <v-btn fab bottom right color="primary" dark fixed
-               @click.stop="openAddObjectForm({module:module_name,namespace:namespace,form_name:form_name})">
-            <v-icon>add</v-icon>
+        <v-btn v-if="showBtn" bottom small right color="primary"
+               @click.stop="getObject({
+                                                            id:object_id,
+                                                            form_name: form_name,
+                                                            namespace: namespace,
+                                                            module: module_name})">
+            {{titleBtn}}
         </v-btn>
-        <v-layout row justify-center>
+        <v-layout row>
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <v-card>
                     <v-card-title>
@@ -36,7 +40,8 @@
                         <v-spacer></v-spacer>
                         <v-btn color="primary" @click="dialog = false">Закрити</v-btn>
                         <v-btn color="primary"
-                               @click="saveObject({module:module_name,namespace:namespace,form_name:form_name})">Зберегти
+                               @click="saveObject({module:module_name,namespace:namespace,form_name:form_name})">
+                            Зберегти
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -47,21 +52,31 @@
 </template>
 
 <script>
-    import FormBase from "@/mixins/FormBase";
+    import FormBase from "../../../mixins/FormBase";
     import DataPicker from "../../../base/DataPicker";
     import Autocomplete from "../../../base/Autocomplete";
     import conf from "./conf";
 
     export default {
+        props: {
+            showBtn: {
+                type: Boolean,
+                default: false
+            },
+            titleBtn: {
+                type: String,
+            },
+            object_id: {
+                type: Number,
+            }
+        },
         components: {Autocomplete, DataPicker},
-        mixins: [FormBase,conf],
+        mixins: [FormBase, conf],
         data() {
             return {
-                form_name:'tech_statement',
-                fields: {
-                    status: 1, //Нова
-                    statement_type: 'web' //Тип заявки
-                },
+                allowed_to_send:["is_contractor_connected","note"],
+                form_name: 'tech_statement',
+                reload_on_save:true
             }
         }
     }

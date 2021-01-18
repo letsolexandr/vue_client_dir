@@ -115,6 +115,7 @@ function saveData(form, module) {
                 module.table.reloadData()
             })
         }
+
     })
         .catch(error => {
             form.loadingPGBar = false
@@ -123,6 +124,7 @@ function saveData(form, module) {
             if (!error_data) {
                 handle_http_error(form.$router, error, form.$store)
             }
+            form.loadingPGBar = false;
         })
 }
 

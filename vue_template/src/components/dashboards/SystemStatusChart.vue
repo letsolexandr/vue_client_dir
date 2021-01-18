@@ -148,7 +148,7 @@
                 loaderBar: false,
                 request_interval:1000*40,
                 proxy_path: "http://185.65.244.215:9090/api/api-report/proxy",
-                inner_proxy_path: "http://10.0.30.220:9999/api/statistic/proxy",
+                inner_proxy_path: "http://10.0.30.220:9999/api/api-base/proxy/",
                 is_sev_active: false,
                 last_sev_check: null,
                 is_trembita_main_active: false,
@@ -214,7 +214,7 @@
             checkSEV() {
                 const url = 'http://sev.dir.gov.ua:4435/csp/dirbus/bus.esb.IntegrationService.cls';
 
-                const base = `${this.inner_proxy_path}/?URL=${url}`;
+                const base = `${this.inner_proxy_path}${url}`;
 
                 axios.get(base).then((response) => {
 
@@ -228,9 +228,9 @@
                 })
             },
             checkTremditaPromMain() {
-                const url = 'http://01-03-uxp-rsp-p-01-n.trembita.gov.ua/internalconf';
+                const url ='http://77.222.146.74/internalconf';
+                const base = `${this.inner_proxy_path}${url}`;
 
-                const base = `${this.proxy_path}/?URL=${url}`;
 
                 axios.get(base).then((response) => {
                     debugger
@@ -244,10 +244,8 @@
                 })
             },
             checkTremditaReservMain() {
-                const url = 'http://02-03-uxp-rsp-p-02-n.trembita.gov.ua/internalconf';
-
-                const base = `${this.proxy_path}/?URL=${url}`;
-
+                const url = 'http://195.78.69.134/internalconf';
+                const base = `${this.inner_proxy_path}${url}`;
                 axios.get(base).then((response) => {
                     debugger
                         this.is_trembita_reserv_active = true;
@@ -261,7 +259,7 @@
             },
             checkVulykAPP() {
                 const url = 'https://app.vulyk.gov.ua/share/page/private-folder-files';
-                const base = `${this.proxy_path}/?URL=${url}`;
+                const base = `${this.inner_proxy_path}${url}`;
                 axios.get(base, {timeout: 10000}).then((response) => {
                     debugger
                         this.is_vulyk_app_active = true;
@@ -277,7 +275,7 @@
             },
             checkVulykGOV() {
                 const param = 'https://vulyk.gov.ua/';
-                const url = `${this.inner_proxy_path}/?URL=${param}`;
+                const url = `${this.inner_proxy_path}${param}`;
                 axios.get(url).then((response) => {
                     debugger
                         this.is_vulyk_gov_active = true;
@@ -290,9 +288,9 @@
                 })
             },
             checkVulykInfo() {
-                const param = 'http://info.vulyk.gov.ua/login';
-                const url = `${this.proxy_path}/?URL=${param}`;
-                axios.get(url).then((response) => {
+                const url = 'https://info.vulyk.gov.ua/login';
+                const base = `${this.inner_proxy_path}${url}`;
+                axios.get(base).then((response) => {
                     debugger
                         this.is_vulyk_info_active = true;
                         this.vulyk_info_check_time = (new Date()).toLocaleTimeString();

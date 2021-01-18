@@ -179,6 +179,32 @@ const routes = [{
                 }
             },
             {
+                name: "contracts_finance",
+                path: "contracts-finance",
+                components: {
+                    content: () => import("@/components/contract/contract/ContractFinanceDataTable")
+                },
+                meta: {
+                    requiresAuth: true,
+                    requires_permission: 'view_contract',
+                    breadcrumb: 'Договори (бухгалтерія)'
+                },
+                children: [
+                    {
+                        name: "id",
+                        path: ":id",
+                        components: {
+                            item: () => import("@/components/contract/contract/card/ContractCard"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_contract',
+                            breadcrumb: 'Договір'
+                        }
+                    }
+                ]
+            },
+            {
                 name: "contracts",
                 path: "contracts",
                 components: {
@@ -324,12 +350,38 @@ const routes = [{
                 name: "sed_statement_7",
                 path: "sed_statement_7",
                 components: {
-                    content: () => import("@/components/statement/sed_statement/SEDStatementDataTable7")
+                    content: () => import("../components/statement/sed_statement/SEDStatementDataTable7")
                 },
                 meta: {
                     requiresAuth: true,
                     requires_permission: 'view_sedstatement',
                     breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Обробляються)'
+                },
+                children: [
+                    {
+                        name: "sed_statement_7__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/statement/sed_statement/SEDStatementCard"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_sedstatement',
+                            breadcrumb: 'Заявка'
+                        }
+                    }
+                ]
+            },
+            {
+                name: "sed_statement_3",
+                path: "sed_statement_3",
+                components: {
+                    content: () => import("../components/statement/sed_statement/SEDStatementDataTableEcommerceComplete")
+                },
+                meta: {
+                    requiresAuth: true,
+                    requires_permission: 'view_sedstatement',
+                    breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Виконані)'
                 }
             },
             {
@@ -342,7 +394,21 @@ const routes = [{
                     requiresAuth: true,
                     requires_permission: 'view_sedstatement',
                     breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Нові)'
-                }
+                },
+                children: [
+                    {
+                        name: "sed_statement_tech__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/statement/sed_statement/SEDStatementCardTech"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_sedstatement',
+                            breadcrumb: 'Заявка'
+                        }
+                    }
+                ]
             },
             {
                 name: "sed_statement_tech_complete",
@@ -354,7 +420,21 @@ const routes = [{
                     requiresAuth: true,
                     requires_permission: 'view_sedstatement',
                     breadcrumb: 'Зявки на підключення до СЕВ ОВВ (Виконані)'
-                }
+                },
+                children: [
+                    {
+                        name: "sed_statement_tech__id",
+                        path: ":id",
+                        components: {
+                            item: () => import("../components/statement/sed_statement/SEDStatementCardTech"),
+                        },
+                        meta: {
+                            requiresAuth: true,
+                            requires_permission: 'view_sedstatement',
+                            breadcrumb: 'Заявка'
+                        }
+                    }
+                ]
             },
             {
                 name: "sed_statementconnectioncnap",

@@ -174,7 +174,7 @@
                 //console.log('filterByParam')
                 this.checkExtraParams(param)
                 if (param && this.extra_params[param] !== value) {
-                    this.extra_params[param] = value
+                    this.extra_params[param] = value;
                     this.isChanged = true
                 }
             },

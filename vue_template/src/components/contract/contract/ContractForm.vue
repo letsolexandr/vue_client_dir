@@ -8,7 +8,7 @@
                @click.stop="openAddObjectForm({module:module_name, initial:initial})">
             {{btn_title}}
         </v-btn>
-        <v-layout row justify-center>
+        <v-layout row >
             <v-dialog v-model="dialog" persistent max-width="800px">
                 <v-card>
                     <v-card-title>
@@ -25,15 +25,14 @@
                                             :error-messages='form_errors.parent_element'>
                                     </Autocomplete>
                                 </v-flex>
-                                <v-flex xs12>
-                                    <Autocomplete
-                                            label="Заявка"
-                                            :url="`${config.domen}/statement/sed-statement/`"
-                                            v-model="fields.statement"
-                                            :error-messages='form_errors.statement'>
-                                    </Autocomplete>
-                                </v-flex>
-
+<!--                                <v-flex xs12>-->
+<!--                                    <Autocomplete-->
+<!--                                            label="Заявка"-->
+<!--                                            :url="`${config.domen}/statement/sed-statement/`"-->
+<!--                                            v-model="fields.statement"-->
+<!--                                            :error-messages='form_errors.statement'>-->
+<!--                                    </Autocomplete>-->
+<!--                                </v-flex>-->
                                 <v-flex xs6>
                                     <v-text-field label="Номер договору"
                                                   :error-messages='form_errors.number_contract'
@@ -76,8 +75,8 @@
                                 </v-flex>
                                 <v-flex xs6>
                                     <DataPicker
-                                            v-model="fields.start_payment"
-                                            :error_messages="form_errors.start_payment"
+                                            v-model="fields.start_accrual"
+                                            :error_messages="form_errors.start_accrual"
                                             label="Дата початку оплати">
                                     </DataPicker>
                                 </v-flex>
@@ -91,30 +90,27 @@
                                     >
                                     </Autocomplete>
                                 </v-flex>
-
                                 <v-flex xs12>
                                     <v-text-field label="Ціна договору(За місяць)"
                                                   :error-messages='form_errors.price_contract_by_month'
                                                   v-model="fields.price_contract_by_month"
-                                                  required>
+                                                  >
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-text-field label="Вартість додаткових послуг та підключення"
                                                   :error-messages='form_errors.price_additional_services'
                                                   v-model="fields.price_additional_services"
-                                                  required>
+                                                  >
                                     </v-text-field>
                                 </v-flex>
-
                                 <v-flex xs12>
                                     <v-text-field label="Ціна договору (Загальна вартість)"
                                                   :error-messages='form_errors.price_contract'
                                                   v-model="fields.price_contract"
-                                                  required>
+                                                  >
                                     </v-text-field>
                                 </v-flex>
-
                                 <v-flex xs12>
                                     <FileFieldV1 label="Копія договору"
                                                  :errormessages='form_errors.copy_contract'

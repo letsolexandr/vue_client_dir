@@ -5,7 +5,7 @@ const token = localStorage.getItem('token') || '';
 const authorization = `Token ${token}`;
 
 const instance = axios.create({
-    timeout: 10000,
+    timeout: 60000*5,
     headers: {'Authorization': authorization}
 });
 

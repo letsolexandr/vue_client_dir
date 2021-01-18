@@ -1,6 +1,6 @@
 <template>
 
-    <v-card>
+    <v-card height="100%">
         <v-card-text>
             <v-container>
                 <v-row >
@@ -13,6 +13,16 @@
                     <v-col cols="6">
                         <p class="text-sm-left">
                             {{object_details.all_data.subject.full_name}}
+                        </p>
+                    </v-col>
+                    <v-col cols="6">
+                        <p class="text-sm-left">
+                            Коротка назва:
+                        </p>
+                    </v-col>
+                    <v-col cols="6">
+                        <p class="text-sm-left">
+                            {{object_details.all_data.subject.name}}
                         </p>
                     </v-col>
 

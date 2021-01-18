@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="mt-2">
         <div class="text-xs-center" style="min-height:400px" id='contract_largest_debtors'>
         </div>
     </v-card>

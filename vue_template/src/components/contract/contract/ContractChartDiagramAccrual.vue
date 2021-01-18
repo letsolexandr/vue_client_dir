@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="mt-2">
         <div class="text-xs-center" style="min-height:400px" id='contract_data_accrual'>
         </div>
     </v-card>
@@ -83,7 +83,7 @@
                 debugger
                 let option = {
                     title: {
-                        text: 'Очікувана сіма надходжень за місяцями',
+                        text: 'Очікувана сума надходжень за місяцями',
                         subtext: '',
                     },
                     legend: {},

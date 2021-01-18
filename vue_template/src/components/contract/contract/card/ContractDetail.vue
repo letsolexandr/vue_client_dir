@@ -50,12 +50,37 @@
                         </v-flex>
                         <v-flex xs6>
                             <p class="text-sm-left">
+                                На контролі в бухгалтерії:
+                            </p>
+                        </v-flex>
+                        <v-flex xs6>
+
+                            <p class="text-sm-left">
+                                <v-chip v-if="object_details.finance_control" color="success"> Так</v-chip>
+                                <v-chip v-if="!object_details.finance_control" color="warning"> Ні</v-chip>
+
+                                <v-btn   class="ml-2" color="primary"
+                                         fab
+                                         x-small
+                                         dark @click="getObject({id:object_details.id,
+                                  form_name: 'change_finance_control_status_form',
+                                  module: 'contract'})">
+                                    <v-icon > mdi-pencil</v-icon>
+                                </v-btn>
+
+                            </p>
+                                <ChangeFinanceControlStatus :id="object_details.id"></ChangeFinanceControlStatus>
+
+
+                        </v-flex>
+                        <v-flex xs6>
+                            <p class="text-sm-left">
                                 Початок сплати:
                             </p>
                         </v-flex>
                         <v-flex xs6>
                             <p class="text-sm-left">
-                                {{object_details.start_payment}}
+                                {{object_details.start_accrual}}
                             </p>
                         </v-flex>
                         <v-flex xs6>
@@ -177,10 +202,12 @@
                             </p>
                         </v-flex>
                         <v-flex xs6>
-                            <p class="text-sm-left">
-                                <a :href="object_details.copy_contract"
-                                   target="_blank">{{getFileName(object_details.copy_contract)}}</a><br>
-                            </p>
+                            <!--                            <v-chip small color="primary" @click="$root.$emit('open-media-dialog',{src:object_details.copy_contract})">-->
+
+                            <!--                                   {{getFileName(object_details.copy_contract)}}-->
+                            <!--                            </v-chip>-->
+                            <a v-show="object_details.contract_docx" :href="object_details.copy_contract"
+                               target="_blank">{{getFileName(object_details.copy_contract)}}</a><br>
                         </v-flex>
 
                     </v-layout>
@@ -204,10 +231,12 @@
     import config from "../config";
     import ConfirmContractForm from "./ConfirmContractForm";
     import SendToArchiveContractForm from "./SendToArchiveContractForm";
+    import TrueFalseChip from "../../../../base/TrueFalseChip";
+    import ChangeFinanceControlStatus from "./ChangeFinanceControlStatus";
 
     export default {
         name: "ContractDetail",
-        components: {SendToArchiveContractForm, ConfirmContractForm},
+        components: {ChangeFinanceControlStatus, TrueFalseChip, SendToArchiveContractForm, ConfirmContractForm},
         props: ['contract_id'],
         data() {
             return {
@@ -255,7 +284,13 @@
                     }
                 ).catch((error) => {
                     this.btn_loading = false;
-                    console.log(error)
+                    if (error.response.status === 400) {
+                        let error_message = error.response.data.none_field_errors;
+                        this.$root.$emit('open-info-dialog', {message: error_message, title: 'Помилка'});
+                    } else {
+                        console.log(error)
+                    }
+
                 })
             }
         }

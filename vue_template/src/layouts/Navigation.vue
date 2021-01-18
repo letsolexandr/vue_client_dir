@@ -67,9 +67,11 @@
                                         <v-icon>{{ child.icon }}</v-icon>
                                     </v-list-item-action>
                                     <v-list-item-content>
-                                        <v-list-item-title>
+                                        <v-list-item-subtitle>
+                                            <v-card tile>
                                             {{ child.text }}
-                                        </v-list-item-title>
+                                            </v-card>
+                                        </v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                             </template>
